@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/unique_ptr.dir/main.cpp.o -o unique_ptr 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11  -pthread -g CMakeFiles/thread_learn.dir/main.cpp.o -o thread_learn 

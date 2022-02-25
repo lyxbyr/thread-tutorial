@@ -1,0 +1,3 @@
+/home/lyx/code_ws/thread_learn/ch7/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/lyx/code_ws/thread_learn/ch7/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/lyx/code_ws/thread_learn/ch7/cmake-build-debug/CMakeFiles/ch7.dir

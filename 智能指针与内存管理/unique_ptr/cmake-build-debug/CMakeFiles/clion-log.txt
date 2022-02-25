@@ -1,0 +1,4 @@
+/snap/clion/169/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/lyx/code_ws/thread_learn/智能指针与内存管理/unique_ptr
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/lyx/code_ws/thread_learn/智能指针与内存管理/unique_ptr/cmake-build-debug

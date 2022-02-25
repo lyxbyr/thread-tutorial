@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lyx/code_ws/thread_learn/ch7/7.4/main.cpp
+iostream
+-
+queue
+-
+mutex
+-
+thread
+-
+condition_variable
+-
+chrono
+-
+
