@@ -217,14 +217,18 @@ int main() {
 
 ## unique_lock的第二个参数
 - lock_guard可以带第二个参数：std::lock_guard<std::mutex> abguard(my_mutex, std::adopt_lock) //adopt_lock标记使用
-- std::adopt_lock标记的效果是“假设调用方 线程已经拥有了互斥的所有权”-已经lock()成功了，通知lock_guard不需要在构造函数中lock这个互斥量了
 - unique_lock也可以带std::adopt_lock标记，含义相同就不需要在unique_lock()构造函数中lock()了
 
 ### std::adopt_lock
+- std::adopt_lock标记的效果是“假设调用方 线程已经拥有了互斥的所有权”-已经lock()成功了，通知lock_guard不需要在构造函数中lock这个互斥量了
 
 ### std::try_to_lock
+- 会尝试用mutex的lock()去锁定这个mutex, 但如果没有锁定成功，也会立即返回，并不会阻塞在那里
+- 用这个try_to_lock的前提是自己不能先去lock(),不然会重复使用lock()
 
 ### std::defer_lock
+- 用这个defer_lock的前提是不能自己先lock，否则会包异常
+- defer_lock并没有给mutex加锁，初始化了一个没有加锁的mutex
 
 ## unique_lock的成员函数
 
@@ -233,13 +237,46 @@ int main() {
 ### unlock()
 
 ### try_lock()
+- 尝试给互斥量加锁，如果拿不到锁，则返回false,　如果拿到了锁，则返回true, 这个函数不阻塞的 
 
 ### release()
+- 返回它所管理的mutex对象指针，并释放所有权，与unique_lock和mutex不再有关系。
+- 严格区分unlock()和release()的区别，不要混淆
+-　如果原来mutex对象处于加锁状态，你有责任接管过来并负责解锁
+
+```
+std::unique_lock<std::mutex> sbguard1(my_mutex1);
+std::mutex *ptx = sbguard1.release(); //有责任接管过来并负责解锁
+//处理数据
+//.....
+
+ptx->unlock();//需要加这个解锁
+```
 
 ## unique_lock的所有权的传递
+### 两种方法
+- 1、std::move
 
+```
+std::unique_lock<std::mutex> sbguard1(my_mutex1);
+sbgurad1拥有ｍy_mutex1的所有权，可以把所有权转移到其他的unique_lock对象
+```
+- unique_lock对象这个mutex的所有权可以转移，但不可以复制
+```
+std:;unique_lock<std::mutex> sbguard1(my_mutex1);
+std:;unique_lock<std::mutex> sbguard2(sbguard1); //错误
+std:;unique_lock<std::mutex> sbguard２(std::move(sbguard1)); //正确，移动语义,相当于sbguard2和my_mutex1绑定到一起了。现在sbguard1指向为空，sbguard2指向my_mutex1
 
-
+```
+- 2、return
+```
+std::unique_lock<std::mutex> rtn_unique_lock()
+{
+  std::unique_lock<std::mutex> tmpgurad(my_mutex1);
+  return tmpguard;//从函数返回一个局部的unique_lock对象是可以的，
+  //因为这种局部对象tmpguard导致系统生成临时unique_lock对象，并调用unique_lock的移动构造函数
+}
+```
 
 # std::future的其他成员函数
 # std::shared_future
