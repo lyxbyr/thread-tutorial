@@ -27,7 +27,7 @@ class A {
   bool outMsgULProc(int &command) {
     my_mutex.lock();
     if (!msgRecvQueue.empty()) {
-      int command = msgRecvQueue.front();
+      command = msgRecvQueue.front();
       msgRecvQueue.pop_front();
       my_mutex.unlock();
       return true;

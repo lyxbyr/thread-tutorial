@@ -24,7 +24,7 @@ class A {
     for (int i = 0; i < 100000; ++i) {
       if (!msgRecvQueue.empty()) {
 
-        int command = msgRecvQueue.front();//返回第一个元素，但不检查元素是否存在
+        command = msgRecvQueue.front();//返回第一个元素，但不检查元素是否存在
         msgRecvQueue.pop_front();//移除第一个元素，但不返回
         //处理数据   
 

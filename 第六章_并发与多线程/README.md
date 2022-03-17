@@ -208,6 +208,36 @@ int main() {
 - adopt_lock:是个结构体对象，起一个标记作用，作用就是表示这个互斥量已经lock()，不需要在std::lock_guard<std::mutex>构造函数里再对对象进行lock()了；
 
 
+# 第六节 unique_lock详解
+
+## unique_lock取代lock_guard
+- 工作中，一般用lock_guard(推荐使用)
+- lock_guard取代了mutex的lock()和unlock()
+- unique_lock比lock_guard灵活很多，效率上差一点，内存占用多一点
+
+## unique_lock的第二个参数
+- lock_guard可以带第二个参数：std::lock_guard<std::mutex> abguard(my_mutex, std::adopt_lock) //adopt_lock标记使用
+- std::adopt_lock标记的效果是“假设调用方 线程已经拥有了互斥的所有权”-已经lock()成功了，通知lock_guard不需要在构造函数中lock这个互斥量了
+- unique_lock也可以带std::adopt_lock标记，含义相同就不需要在unique_lock()构造函数中lock()了
+
+### std::adopt_lock
+
+### std::try_to_lock
+
+### std::defer_lock
+
+## unique_lock的成员函数
+
+### lock()
+
+### unlock()
+
+### try_lock()
+
+### release()
+
+## unique_lock的所有权的传递
+
 
 
 

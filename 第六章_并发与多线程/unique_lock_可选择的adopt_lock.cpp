@@ -1,3 +1,9 @@
+/*
+ * @Author: liaoyixiong
+ * @Date: 2022-03-03 14:23:58
+ * @Last Modified by: liaoyixiong
+ * @Last Modified time: 2022-03-03 15:38:24
+ */
 #include <iostream>
 #include <list>
 #include <mutex>
@@ -19,20 +25,31 @@ class A {
     for (int i = 0; i < 100000; ++i) {
       cout << "inMsgRecvQueue()执行，插入一个元素" << i << endl;
       {
-        std::lock_guard<std::mutex> sbguard(my_mutex);
+        //相当于都调用了lock()
+        std::lock(my_mutex1, my_mutex2);
+
+        std::unique_lock<std::mutex> sbguard1(my_mutex1, std::adopt_lock);
+        std::unique_lock<std::mutex> sbguard2(my_mutex2, std::adopt_lock);
+
         msgRecvQueue.push_back(i);
       }
-      //其他处理代码...
+
+      //处理其他代码....
     }
   }
 
   bool outMsgULProc(int &command) {
-    std::lock_guard<std::mutex> sbguard(my_mutex);
+    std::lock(my_mutex2, my_mutex1);  //先后顺序没有问题
+
+    std::unique_lock<std::mutex> sbguard1(my_mutex1, std::adopt_lock);
+    std::unique_lock<std::mutex> sbguard2(my_mutex2, std::adopt_lock);
     if (!msgRecvQueue.empty()) {
       command = msgRecvQueue.front();
       msgRecvQueue.pop_front();
+
       return true;
     }
+
     return false;
   }
 
@@ -51,7 +68,8 @@ class A {
 
  private:
   std::list<int> msgRecvQueue;  //容器。专门用于代表玩家给咱们发过来的命令
-  std::mutex my_mutex;
+  std::mutex my_mutex1;
+  std::mutex my_mutex2;
 };
 
 int main() {

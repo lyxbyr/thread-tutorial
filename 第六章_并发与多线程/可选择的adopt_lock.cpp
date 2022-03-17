@@ -2,7 +2,7 @@
  * @Author: liaoyixiong
  * @Date: 2022-03-03 14:23:58
  * @Last Modified by: liaoyixiong
- * @Last Modified time: 2022-03-03 14:53:18
+ * @Last Modified time: 2022-03-03 15:38:24
  */
 #include <iostream>
 #include <list>
@@ -44,7 +44,7 @@ class A {
     std::lock_guard<std::mutex> sbguard1(my_mutex1, std::adopt_lock);
     std::lock_guard<std::mutex> sbguard2(my_mutex2, std::adopt_lock);
     if (!msgRecvQueue.empty()) {
-      int command = msgRecvQueue.front();
+      command = msgRecvQueue.front();
       msgRecvQueue.pop_front();
 
       return true;
