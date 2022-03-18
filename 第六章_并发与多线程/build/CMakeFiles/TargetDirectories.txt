@@ -1,3 +1,0 @@
-/home/lyx/code_ws/thread-tutorial/第六章_并发与多线程/build/CMakeFiles/rebuild_cache.dir
-/home/lyx/code_ws/thread-tutorial/第六章_并发与多线程/build/CMakeFiles/edit_cache.dir
-/home/lyx/code_ws/thread-tutorial/第六章_并发与多线程/build/CMakeFiles/thread_learn.dir

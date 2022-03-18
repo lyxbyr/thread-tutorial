@@ -278,6 +278,26 @@ std::unique_lock<std::mutex> rtn_unique_lock()
 }
 ```
 
+# 第七节 单例设计模式共享数据分析、解决、call_once
+
+## 单例设计模式
+
+##　单例设计模式共享数据分析、解决
+
+- 创建这个单例类的对象，这种线程可能不止一个(最少２个)
+- 可能会面临GetInstance()这种成员函数互斥
+
+## call_once()
+- std::call_once()，ｃ++11引入的函数，该函数的第二个参数是一个函数名func();
+- std::call_once()功能保证func()函数只能调用一次
+- std::call_once()具备互斥量这种能力，而且效率上，比互斥量消耗的资源更少；
+- std::call_once()需要一个标记结合使用，这个标记std::once_flag(一个结构);
+- std::call_once()是通过这个标记来决定对应的函数func()是否执行，调用call_once()成功后，
+call_once()就把这个标记设置为一种已调用状态
+- 后续再调用call_once()后，因为标记"已调用状态"，那么对应的函数func()就不会再执行了；
+
+
+
 # std::future的其他成员函数
 # std::shared_future
 # 原子操作std::atomic
