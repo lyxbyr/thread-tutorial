@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMKAE_CXX_STANDARD 17)
+
+project(cpptest LANGUAGES CXX)
+
+add_executable(cpptest main.cc)
+
+find_package(Threads REQUIRED)
+
+target_link_libraries(cpptest PUBLIC Threads::Threads)
