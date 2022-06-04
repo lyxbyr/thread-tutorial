@@ -23,13 +23,17 @@ void interact() {
 
 int main() {
   std::promise<int> pret;
-  std::thread t1([&] { auto res = download("hello.zip");
-      pro });
+  std::thread t1([&] {
+    auto res = download("hello.zip");
+    pret.set_value(res);
+  });
+  std::future<int> fret = pret.get_future();
 
   interact();
-  fut2.wait();
+  int ret = fret.get();
 
-  std::cout << "Download completed" << std::endl;
+  std::cout << "Download result: " << ret << std::endl;
+  t1.join();
 
   return 0;
 }
