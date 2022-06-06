@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/cpptest.dir/main.cc.o -o cpptest  -lpthread 
